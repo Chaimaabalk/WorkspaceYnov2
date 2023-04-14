@@ -1,7 +1,7 @@
 <?php
 namespace App\Tests;
 
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
+use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use App\Entity\Conversation;
 use App\Entity\User;
 use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
