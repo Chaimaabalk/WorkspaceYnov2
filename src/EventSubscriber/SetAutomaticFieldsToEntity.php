@@ -8,6 +8,8 @@ use App\Entity\GroupRequest;
 use App\Entity\Message;
 use App\Entity\Thread;
 use App\Entity\User;
+use App\Entity\Conversation;
+use App\Entity\PrivateMessage;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
@@ -15,6 +17,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+
 
 class SetAutomaticFieldsToEntity implements EventSubscriberInterface
 {
@@ -53,7 +56,7 @@ class SetAutomaticFieldsToEntity implements EventSubscriberInterface
      */
     public function needExtraData(mixed $entity): bool
     {
-        return $entity instanceof GroupRequest || $entity instanceof Group || $entity instanceof Thread || $entity instanceof Message;
+        return $entity instanceof GroupRequest || $entity instanceof Group || $entity instanceof Thread || $entity instanceof Message || $entity instanceof Conversation || $entity instanceof PrivateMessage;
     }
 
     /**
@@ -81,6 +84,14 @@ class SetAutomaticFieldsToEntity implements EventSubscriberInterface
                 break;
             case Message::class:
                 /** @var Thread $entity */
+                $entity->setOwner($user);
+                break;
+            case Conversation::class:
+                /** @var Conversation $entity */
+                $entity->setOwner($user);
+                break;
+            case PrivateMessage::class:
+                /** @var PrivateMessage $entity */
                 $entity->setOwner($user);
                 break;
         }

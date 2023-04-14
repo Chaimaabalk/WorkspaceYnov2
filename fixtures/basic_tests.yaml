@@ -19,3 +19,10 @@ App\Entity\Group:
     name: <name()>
     description: <text()>
 
+
+App\Entity\Conversation:
+  conv_A:
+    user1: "@user_1"
+    user2: "@user_2"
+    createdAt: <(new \DateTimeImmutable())>
+
